@@ -58,8 +58,9 @@ public class FlutterFacebookAppLinksPlugin implements FlutterPlugin, MethodCallH
     if (call.method.equals("getPlatformVersion")) {
       result.success("Android " + android.os.Build.VERSION.RELEASE);
     } else if(call.method.equals("initFBLinks")){
-
-      initFBLinks(result);
+      final String appId = call.argument("appId");
+      final String clientId = call.argument("clientId");
+      initFBLinks(result,appId,clientId);
 
     } else if(call.method.equals("getDeepLinkUrl")){
 
@@ -87,7 +88,7 @@ public class FlutterFacebookAppLinksPlugin implements FlutterPlugin, MethodCallH
 
   
 
-  private void initFBLinks(Result result) {
+  private void initFBLinks(Result result,String appId,String clientId) {
     //Log.d("FB_APP_LINKS", "Facebook App Links initialized");
 
     // final Map<String, String> data = new HashMap<>();
@@ -95,8 +96,7 @@ public class FlutterFacebookAppLinksPlugin implements FlutterPlugin, MethodCallH
     final Result resultDelegate = result;
     // Get a handler that can be used to post to the main thread
     final Handler mainHandler = new Handler(mContext.getMainLooper());
-final String appId = call.argument("appId");
-final String clientId = call.argument("clientId");
+
     // Get user consent
     FacebookSdk.setAutoLogAppEventsEnabled(false);
     FacebookSdk.setApplicationId(appId);
