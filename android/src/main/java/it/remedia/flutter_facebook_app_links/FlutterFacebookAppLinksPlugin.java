@@ -99,7 +99,7 @@ public class FlutterFacebookAppLinksPlugin implements FlutterPlugin, MethodCallH
     // Get user consent
     FacebookSdk.setAutoLogAppEventsEnabled(false);
     FacebookSdk.setApplicationId("787743588581499");
-        FacebookSdk.setClientToken("674f3565e7db02d9b2a0795d8c833267");
+    FacebookSdk.setClientToken("674f3565e7db02d9b2a0795d8c833267");
     FacebookSdk.setAutoInitEnabled(true);
     FacebookSdk.fullyInitialize();
  
