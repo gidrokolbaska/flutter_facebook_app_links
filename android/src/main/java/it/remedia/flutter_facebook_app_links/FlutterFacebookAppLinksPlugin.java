@@ -95,11 +95,12 @@ public class FlutterFacebookAppLinksPlugin implements FlutterPlugin, MethodCallH
     final Result resultDelegate = result;
     // Get a handler that can be used to post to the main thread
     final Handler mainHandler = new Handler(mContext.getMainLooper());
-
+final String appId = call.argument("appId");
+final String clientId = call.argument("clientId");
     // Get user consent
     FacebookSdk.setAutoLogAppEventsEnabled(false);
-    FacebookSdk.setApplicationId("787743588581499");
-    FacebookSdk.setClientToken("674f3565e7db02d9b2a0795d8c833267");
+    FacebookSdk.setApplicationId(appId);
+    FacebookSdk.setClientToken(clientId);
     FacebookSdk.setAutoInitEnabled(true);
     FacebookSdk.fullyInitialize();
     FacebookSdk.sdkInitialize(mContext);
