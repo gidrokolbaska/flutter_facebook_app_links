@@ -102,6 +102,7 @@ public class FlutterFacebookAppLinksPlugin implements FlutterPlugin, MethodCallH
     FacebookSdk.setClientToken("674f3565e7db02d9b2a0795d8c833267");
     FacebookSdk.setAutoInitEnabled(true);
     FacebookSdk.fullyInitialize();
+    FacebookSdk.sdkInitialize(mContext);
  
 
     AppLinkData.fetchDeferredAppLinkData(mContext,
