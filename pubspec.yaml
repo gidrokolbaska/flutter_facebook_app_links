@@ -17,8 +17,10 @@ dev_dependencies:
 
 flutter:
   plugin:
-    androidPackage: it.remedia.flutter_facebook_app_links
-    pluginClass: FlutterFacebookAppLinksPlugin
+    platforms:
+      android:
+        package: it.remedia.flutter_facebook_app_links
+        pluginClass: FlutterFacebookAppLinksPlugin
       # ios:
       #   pluginClass: FlutterFacebookAppLinksPlugin
 
