@@ -21,6 +21,6 @@ flutter:
       android:
         package: it.remedia.flutter_facebook_app_links
         pluginClass: FlutterFacebookAppLinksPlugin
-      # ios:
-      #   pluginClass: FlutterFacebookAppLinksPlugin
+      ios:
+        pluginClass: FlutterFacebookAppLinksPlugin
 
