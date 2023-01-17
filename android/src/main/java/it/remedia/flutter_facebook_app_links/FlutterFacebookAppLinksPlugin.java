@@ -114,7 +114,7 @@ public class FlutterFacebookAppLinksPlugin implements FlutterPlugin, MethodCallH
           if(appLinkData!=null) {
 
             if(appLinkData.getTargetUri()!=null){
-              //Log.d("FB_APP_LINKS", "Deferred Deeplink Received: " + appLinkData.getTargetUri().toString());
+              Log.d("FB_APP_LINKS", "Deferred Deeplink Received: " + appLinkData.getTargetUri().toString());
               // data.put("deeplink", appLinkData.getTargetUri().toString());
               deeplinkUrl = appLinkData.getTargetUri().toString();
             }
@@ -136,7 +136,7 @@ public class FlutterFacebookAppLinksPlugin implements FlutterPlugin, MethodCallH
             mainHandler.post(myRunnable);
 
           }else{
-            //Log.d("FB_APP_LINKS", "Deferred Deeplink Received: null link");
+            Log.d("FB_APP_LINKS", "Deferred Deeplink Received: null link");
 
             Runnable myRunnable = new Runnable() {
               @Override
