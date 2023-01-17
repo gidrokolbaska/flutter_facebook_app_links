@@ -21,7 +21,7 @@ import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.common.PluginRegistry.Registrar
 /** FlutterFacebookAppLinksPlugin  */
-class FlutterFacebookAppLinksPlugin : FlutterPlugin, MethodCallHandler {
+class FlutterFacebookAppLinksPlugin : FlutterPlugin, MethodCallHandler,ActivityAware, PluginRegistry.NewIntentListener {
     private var mContext: Context? = null
     private val mActivity: Activity? = null
     private var deeplinkUrl = ""
