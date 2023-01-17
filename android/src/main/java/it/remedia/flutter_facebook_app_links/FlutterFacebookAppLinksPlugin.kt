@@ -1,8 +1,25 @@
 package it.remedia.flutter_facebook_app_links
 
+
+import android.app.Activity
+import android.content.Context
 import android.os.Build
 import android.os.Handler
-
+import android.util.Log
+import com.facebook.FacebookSdk
+import com.facebook.applinks.AppLinkData
+import io.flutter.embedding.engine.plugins.FlutterPlugin
+import io.flutter.embedding.engine.plugins.activity.ActivityAware
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
+import io.flutter.plugin.common.EventChannel
+import io.flutter.plugin.common.EventChannel.EventSink
+import io.flutter.plugin.common.EventChannel.StreamHandler
+import io.flutter.plugin.common.MethodCall
+import io.flutter.plugin.common.MethodChannel
+import io.flutter.plugin.common.MethodChannel.MethodCallHandler
+import io.flutter.plugin.common.MethodChannel.Result
+import io.flutter.plugin.common.PluginRegistry
+import io.flutter.plugin.common.PluginRegistry.Registrar
 /** FlutterFacebookAppLinksPlugin  */
 class FlutterFacebookAppLinksPlugin : FlutterPlugin, MethodCallHandler {
     private var mContext: Context? = null
@@ -10,7 +27,7 @@ class FlutterFacebookAppLinksPlugin : FlutterPlugin, MethodCallHandler {
     private var deeplinkUrl = ""
     private var methodChannel: MethodChannel? = null
     fun onAttachedToEngine(binding: FlutterPluginBinding) {
-        Log.d(TAG, "onAttachedToEngine...")
+        Log.d("tag", "onAttachedToEngine...")
         methodChannel = MethodChannel(binding.getBinaryMessenger(), CHANNEL)
         methodChannel.setMethodCallHandler(this)
         mContext = binding.getApplicationContext()
@@ -54,46 +71,43 @@ class FlutterFacebookAppLinksPlugin : FlutterPlugin, MethodCallHandler {
         val mainHandler: Handler = Handler(mContext.getMainLooper())
 
         // Get user consent
-        setAutoLogAppEventsEnabled(false)
-        setApplicationId(appId)
-        setClientToken(clientId)
-        setAutoInitEnabled(true)
-        fullyInitialize()
-        sdkInitialize(mContext)
-        AppLinkData.fetchDeferredAppLinkData(mContext,
-            object : AppLinkData.CompletionHandler {
-                override fun onDeferredAppLinkDataFetched(appLinkData: AppLinkData?) {
-                    // Process app link data
-                    if (appLinkData != null) {
-                        if (appLinkData.getTargetUri() != null) {
-                            Log.d(
-                                "FB_APP_LINKS",
-                                "Deferred Deeplink Received: " + appLinkData.getTargetUri()
-                                    .toString()
-                            )
-                            // data.put("deeplink", appLinkData.getTargetUri().toString());
-                            deeplinkUrl = appLinkData.getTargetUri().toString()
-                        }
-
-                        //Log.d("FB_APP_LINKS", "Deferred Deeplink Received: " + appLinkData.getPromotionCode());
-                        // if(appLinkData.getPromotionCode()!=null)
-                        //   data.put("promotionalCode", appLinkData.getPromotionCode());
-                        // else
-                        //   data.put("promotionalCode", "");
-                        val myRunnable = Runnable {
-                            if (resultDelegate != null) resultDelegate.success(deeplinkUrl)
-                        }
-                        mainHandler.post(myRunnable)
-                    } else {
-                        Log.d("FB_APP_LINKS", "Deferred Deeplink Received: null link")
-                        val myRunnable = Runnable {
-                            if (resultDelegate != null) resultDelegate.success(deeplinkUrl)
-                        }
-                        mainHandler.post(myRunnable)
-                    }
+        FacebookSdk.setAutoLogAppEventsEnabled(false)
+        FacebookSdk.setApplicationId(appId)
+        FacebookSdk.setClientToken(clientId)
+        FacebookSdk.setAutoInitEnabled(true)
+        FacebookSdk.fullyInitialize()
+        FacebookSdk.sdkInitialize(mContext!!)
+        AppLinkData.fetchDeferredAppLinkData(mContext
+        ) { appLinkData ->
+            // Process app link data
+            if (appLinkData != null) {
+                if (appLinkData.targetUri != null) {
+                    Log.d(
+                        "FB_APP_LINKS",
+                        "Deferred Deeplink Received: " + appLinkData.targetUri
+                            .toString()
+                    )
+                    // data.put("deeplink", appLinkData.getTargetUri().toString());
+                    deeplinkUrl = appLinkData.targetUri.toString()
                 }
+
+                //Log.d("FB_APP_LINKS", "Deferred Deeplink Received: " + appLinkData.getPromotionCode());
+                // if(appLinkData.getPromotionCode()!=null)
+                //   data.put("promotionalCode", appLinkData.getPromotionCode());
+                // else
+                //   data.put("promotionalCode", "");
+                val myRunnable = Runnable {
+                    if (resultDelegate != null) resultDelegate.success(deeplinkUrl)
+                }
+                mainHandler.post(myRunnable)
+            } else {
+                Log.d("FB_APP_LINKS", "Deferred Deeplink Received: null link")
+                val myRunnable = Runnable {
+                    if (resultDelegate != null) resultDelegate.success(deeplinkUrl)
+                }
+                mainHandler.post(myRunnable)
             }
-        )
+        }
     }
 
     companion object {
