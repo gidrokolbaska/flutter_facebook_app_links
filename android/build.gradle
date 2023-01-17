@@ -24,7 +24,9 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 28
-
+ sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
     defaultConfig {
         minSdkVersion 19
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

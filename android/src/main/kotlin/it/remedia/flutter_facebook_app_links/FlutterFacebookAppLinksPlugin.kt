@@ -6,6 +6,9 @@ import android.content.Context
 import android.os.Build
 import android.os.Handler
 import android.util.Log
+import android.content.Intent
+import android.os.Bundle
+import androidx.annotation.NonNull
 import com.facebook.FacebookSdk
 import com.facebook.applinks.AppLinkData
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -20,6 +23,11 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import java.lang.NullPointerException
+import java.util.*
+import kotlin.collections.HashMap
+import kotlin.math.log
+import android.util.Log
 /** FlutterFacebookAppLinksPlugin  */
 class FlutterFacebookAppLinksPlugin : FlutterPlugin, MethodCallHandler,ActivityAware, PluginRegistry.NewIntentListener {
     private var mContext: Context? = null
