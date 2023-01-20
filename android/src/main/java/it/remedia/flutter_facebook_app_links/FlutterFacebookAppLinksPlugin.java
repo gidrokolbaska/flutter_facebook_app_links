@@ -41,7 +41,7 @@ public class FlutterFacebookAppLinksPlugin implements FlutterPlugin, MethodCallH
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
-    Log.d(TAG, "onAttachedToEngine...");
+    //Log.d(TAG, "onAttachedToEngine...");
     methodChannel = new MethodChannel(binding.getBinaryMessenger(), CHANNEL);
     methodChannel.setMethodCallHandler(this);
     mContext = binding.getApplicationContext();
@@ -114,7 +114,7 @@ public class FlutterFacebookAppLinksPlugin implements FlutterPlugin, MethodCallH
           if(appLinkData!=null) {
 
             if(appLinkData.getTargetUri()!=null){
-              Log.d("FB_APP_LINKS", "Deferred Deeplink Received: " + appLinkData.getTargetUri().toString());
+             // Log.d("FB_APP_LINKS", "Deferred Deeplink Received: " + appLinkData.getTargetUri().toString());
               // data.put("deeplink", appLinkData.getTargetUri().toString());
               deeplinkUrl = appLinkData.getTargetUri().toString();
             }

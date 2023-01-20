@@ -20,7 +20,7 @@ class FlutterFacebookAppLinks {
         'appId': appId,
         'clientId': clientId,
       });
-      print('Deferred FB Link: $data');
+      //print('Deferred FB Link: $data');
       return data ?? '';
     } catch (e) {
       debugPrint("Error retrieving deferred deep link: $e");
